@@ -66,6 +66,7 @@ $route['admin/admin'] = 'Admin1/index';
 $route['admin/produk'] = 'Produk/index';
 $route['admin/jasa'] = 'Jasa/index';
 $route['admin/foto'] = 'Foto/index';
+$route['admin/laporan'] = 'Laporan/index';
 $route['admin/video'] = 'Video/index';
 $route['admin/sewa_produk'] = 'Sewa_Produk/index';
 $route['admin/sewa_jasa'] = 'Sewa_Jasa/index';

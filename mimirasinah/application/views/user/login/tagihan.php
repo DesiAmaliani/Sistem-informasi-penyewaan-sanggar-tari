@@ -135,7 +135,7 @@
                         echo "<tr><td><input type='radio' name='id_sewa' value='$query9->id_sp' checked></td>";
                         "<td>".$query9->id_sp."</td>";
                         echo "<td>".$query9->judul."</td>";
-                        echo "<td>".'Rp. '.number_format($query9->harga)."</td>";
+                        echo "<td>".'Rp. '.number_format($query9->biaya)."</td>";
                        
                           $query8=$this->db->query("SELECT * from pembayaran where id_sewa Like 'P%' AND id_sewa='$query9->id_sp'");
                             $c=$query8->num_rows();  

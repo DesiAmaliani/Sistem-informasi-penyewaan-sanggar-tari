@@ -110,7 +110,7 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-  <a class="nav-link" href="keuangan">
+  <a class="nav-link" href="laporan">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>Laporan Keuangan</span></a>
 </li>

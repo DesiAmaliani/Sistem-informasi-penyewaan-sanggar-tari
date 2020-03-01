@@ -18,10 +18,12 @@
                   <textarea class="form-control" name="alamat" id="alamat" required><?php echo $alamat; ?></textarea>
               <label for="date">Tanggal Acara <?php echo form_error('tgl_acara') ?></label>
                 <input type="date" class="form-control" name="tgl_acara" id="tgl_acara" placeholder="Tgl acara" value="<?php echo $tgl_acara; ?>" required />
-              <label for="int">Biaya <?php echo form_error('biaya') ?></label>
-                <input type="text" readonly class="form-control" name="biaya" id="biaya" placeholder="Biaya" value="<?php echo $biaya; ?>" />
+              <label for="int">Biaya </label>
+                <input type="text" readonly name="total" class="form-control" id="b1" onkeyup="sum();" value="<?php echo $biaya; ?>" />
                 <label for="date">Jumlah Pesan <?php echo form_error('jml_pesan') ?></label>
-                  <input type="number" class="form-control" name="jml_pesan" id="jml_pesan" placeholder="Jumlah Pesan" value="<?php echo $jml_pesan; ?>" />
+                  <input type="number" class="form-control" name="jml_pesan" onkeyup="sum();" id="jml_pesan" placeholder="Jumlah Pesan" value="<?php echo $jml_pesan; ?>" />
+                  <label for="int">Total Biaya <?php echo form_error('biaya') ?></label>
+                <input type="text" readonly class="form-control" name="biaya" id="biaya" placeholder="Biaya" value="<?php echo $biaya; ?>" />
                 <input type="hidden" class="form-control" name="id_produk" id="id_produk" placeholder="Id produk" value="<?php echo $id_produk; ?>" />
                 <?php
                 $email =$this->session->userdata('email');
@@ -41,9 +43,16 @@
         	      <center>
                         <button type="submit"  class="btn btn-primary py-3 px-5">Kirim</button></center>
           </div>
-        		
+          <script>
+            function sum(){
+                var txtFirstNumberValue=document.getElementById('b1').value;
+                var txtSecondNumberValue=document.getElementById('jml_pesan').value;
+                var result = parseInt(txtFirstNumberValue)*parseInt(txtSecondNumberValue);
+                if(!isNaN(result)){
+                    document.getElementById('biaya').value = result;
+                }
+            }
+            </script>
         	</div>
-
-        	
     	</div>
     </section>
