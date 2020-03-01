@@ -59,7 +59,7 @@ class Jasa extends CI_Controller
             'nama' => $row->nama,
             'harga' => $row->harga,
             'deskripsi' => $row->deskripsi,
-            'foto' => $row->foto,
+            'foto_jasa' => $row->foto_jasa,
             'tgl_input' => $row->tgl_input,
             "container" => "admin/jasa/jasa_read", 
             "footer" => "admin/footer",
@@ -81,7 +81,7 @@ class Jasa extends CI_Controller
             'nama' => set_value('nama'),
             'harga' => set_value('harga'),
             'deskripsi' => set_value('deskripsi'),
-            'foto' => set_value('foto'),
+            'foto_jasa' => set_value('foto_jasa'),
             'tgl_input' => set_value('tgl_input'),
             "container" => "admin/jasa/jasa_form", 
             "footer" => "admin/footer",
@@ -98,14 +98,13 @@ class Jasa extends CI_Controller
             $this->create();
         } else {
             $data = array(
-            'id_jasa' => $this->input->post('id_jasa',TRUE),
-            'nama' => $this->input->post('nama',TRUE),
-            'harga' => $this->input->post('harga',TRUE),
-            'deskripsi' => $this->input->post('deskripsi',TRUE),
-            'foto' => $this->_uploadImage(),
-            'tgl_input' => $this->input->post('tgl_input',TRUE),
+                'id_jasa' => $this->input->post('id_jasa',TRUE),
+                'nama' => $this->input->post('nama',TRUE),
+                'harga' => $this->input->post('harga',TRUE),
+                'deskripsi' => $this->input->post('deskripsi',TRUE),
+                'foto_jasa' => $this->_uploadImage(),
+                'tgl_input' => $this->input->post('tgl_input',TRUE),
             );
-
             $this->Jasa_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('admin/jasa'));
@@ -124,7 +123,7 @@ class Jasa extends CI_Controller
                 'nama' => set_value('nama', $row->nama),
                 'harga' => set_value('harga', $row->harga),
                 'deskripsi' => set_value('deskripsi', $row->deskripsi),
-                'foto' => set_value('foto', $row->foto),
+                'foto_jasa' => set_value('foto_jasa', $row->foto_jasa),
                 'tgl_input' => set_value('tgl_input', $row->tgl_input),
                 "container" => "admin/jasa/jasa_form", 
                 "footer" => "admin/footer",
@@ -144,23 +143,66 @@ class Jasa extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_jasa', TRUE));
         } else {
-            if (!empty($_FILES["foto"])) {
-            $data = array(
-            'nama' => $this->input->post('nama',TRUE),
-            'harga' => $this->input->post('harga',TRUE),
-            'deskripsi' => $this->input->post('deskripsi',TRUE),
-            'foto' =>  $this->_uploadImage(),
-            'tgl_input' => $this->input->post('tgl_input',TRUE),
-            );
-            } else {
-                $data = array(
-                    'nama' => $this->input->post('nama',TRUE),
-                    'harga' => $this->input->post('harga',TRUE),
-                    'deskripsi' => $this->input->post('deskripsi',TRUE),
-                    'foto' => $this->input->post('old_image',TRUE),
-                    'tgl_input' => $this->input->post('tgl_input',TRUE),
+                $config = array(
+                    'upload_path'=>'./user/produk_dan_jasa/',
+                    'allowed_types'=>'jpg|png|jpeg',
+                    'max_size'=>2086
                     );
-            }
+
+                $nama = $this->input->post('nama');
+                $harga = $this->input->post('harga');
+                $deskripsi = $this->input->post('deskripsi');
+                $tgl_input = $this->input->post('tgl_input');
+                $foto = $this->db->get_where('jasa','id_jasa');
+
+                if($foto->num_rows()>0){
+                $pros=$foto->row();
+                $name=$pros->foto_jasa;
+
+                if(file_exists($lok=FCPATH.'/user/produk_dan_jasa/'.$name)){
+                unlink($lok);
+                }
+                if(file_exists($lok=FCPATH.'/user/produk_dan_jasa/'.$name)){
+                unlink($lok);
+                }}
+
+                $this->load->library('upload',$config);
+
+                if($this->upload->do_upload('foto_jasa')){
+
+                $finfo = $this->upload->data();
+                $nama_foto = $finfo['file_name'];
+
+                $data= array(
+                                    'nama'=>$nama,
+                                    'harga'=>$harga,
+                                    'deskripsi'=>$deskripsi,
+                                    'tgl_input'=>$tgl_input,
+                                    'foto_jasa'=>$nama_foto
+                                    );
+
+                $config2 = array(
+                        'source_image'=>'user/produk_dan_jasa/'.$nama_foto,
+                        'image_library'=>'gd2',
+                        'new_image'=>'user/produk_dan_jasa',
+                        'maintain_ratio'=>true,
+                        'width'=>150,
+                        'height'=>200
+                    );
+
+                $this->load->library('image_lib',$config2);
+                $this->image_lib->resize();    
+
+                }else{
+                $data= array(
+                                    'nama'=>$nama,
+                                    'harga'=>$harga,
+                                    'deskripsi'=>$deskripsi,
+                                    'tgl_input'=>$tgl_input,
+                                    );
+
+                }
+
             $this->Jasa_model->update($this->input->post('id_jasa', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('admin/jasa'));
@@ -184,9 +226,9 @@ class Jasa extends CI_Controller
     private function _uploadImage(){
          
         $liatdata=$this->db->query("SELECT * FROM jasa");
-        $idsementara=$liatdata->num_rows()+1;
+        $idsementara=$liatdata->num_rows();
         $id_jasa="$idsementara";
-        $id_jasa=substr($id_jasa,-8);
+        // $id_jasa=substr($id_jasa,-8);
                 
         $config['upload_path']          = './user/produk_dan_jasa/';
         $config['allowed_types']        = 'gif|jpg|png';
@@ -198,18 +240,18 @@ class Jasa extends CI_Controller
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('foto')) {
+        if ($this->upload->do_upload('foto_jasa')) {
                 return $this->upload->data("file_name");
         }
                 return "default.jpg";
-        }
+    }
 
     public function _rules() 
     {
 	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
 	$this->form_validation->set_rules('harga', 'harga', 'trim|required');
 	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
-	// $this->form_validation->set_rules('foto', 'foto', 'trim|required');
+	// $this->form_validation->set_rules('foto_jasa', 'foto_jasa', 'trim|required');
 	$this->form_validation->set_rules('tgl_input', 'tgl input', 'trim|required');
 
 	$this->form_validation->set_rules('id_jasa', 'id_jasa', 'trim');

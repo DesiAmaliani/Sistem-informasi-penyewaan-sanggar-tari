@@ -8,50 +8,24 @@
           </div>
         </div>
     		<div class="row">
+			<?php
+					$hasil= $this->db->query("SELECT * from produk");
+					foreach($hasil->result() as $produk){
+					?>
     			<div class="col-md-3 text-center ftco-animate">
       			<div class="menu-wrap">
-      				<a href="#" class="menu-img img mb-4" style="background-image: url(<?php echo base_url(); ?>user/images/pizza-1.jpg);"></a>
+      				<a href="#" class="menu-img img mb-4" style="background-image: url(<?php echo base_url(); ?>user/produk_dan_jasa/<?php echo $produk->foto; ?>);"></a>
       				<div class="text">
-      					<h3><a href="#">Itallian Pizza</a></h3>
-      					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-      					<p class="price"><span>$2.90</span></p>
-      					<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+      					<h3><a href="#"><?php echo $produk->judul?></a></h3>
+      					<p>Stok : <?php echo $produk->stok?></p>
+      					<p class="price"><span><?php echo 'Rp. '.number_format($produk->harga)?></span></p>
+      					<p><a href="<?php echo site_url() ?>login" class="btn btn-white btn-outline-white">Sewa</a></p>
       				</div>
       			</div>
-      		</div>
-      		<div class="col-md-3 text-center ftco-animate">
-      			<div class="menu-wrap">
-      				<a href="#" class="menu-img img mb-4" style="background-image: url(<?php echo base_url(); ?>user/images/pizza-2.jpg);"></a>
-      				<div class="text">
-      					<h3><a href="#">Itallian Pizza</a></h3>
-      					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-      					<p class="price"><span>$2.90</span></p>
-      					<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-      				</div>
-      			</div>
-      		</div>
-      		<div class="col-md-3 text-center ftco-animate">
-      			<div class="menu-wrap">
-      				<a href="#" class="menu-img img mb-4" style="background-image: url(<?php echo base_url(); ?>user/images/pizza-3.jpg);"></a>
-      				<div class="text">
-      					<h3><a href="#">Itallian Pizza</a></h3>
-      					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-      					<p class="price"><span>$2.90</span></p>
-      					<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-      				</div>
-      			</div>
-      		</div>
-      		<div class="col-md-3 text-center ftco-animate">
-      			<div class="menu-wrap">
-      				<a href="#" class="menu-img img mb-4" style="background-image: url(<?php echo base_url(); ?>user/images/pizza-4.jpg);"></a>
-      				<div class="text">
-      					<h3><a href="#">Itallian Pizza</a></h3>
-      					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-      					<p class="price"><span>$2.90</span></p>
-      					<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-      				</div>
-      			</div>
-      		</div>
+			  </div>
+			  <?php 
+					} 
+		?>
     		</div>
     	</div>
     </section>

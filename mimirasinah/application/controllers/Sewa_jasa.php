@@ -9,6 +9,7 @@ class Sewa_jasa extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Sewa_jasa_model');
+        $this->load->model('pembayaran_model');
         $this->load->library('form_validation');
     }
 
@@ -52,38 +53,76 @@ class Sewa_jasa extends CI_Controller
 
     public function read($id) 
     {
-        $row = $this->Sewa_jasa_model->get_by_id($id);
+        //$row = $this->db->query("select * from pembayaran where id_sewa='$id'");
+        $row = $this->pembayaran_model->get_by_id($id);
+        // $row=$row->result();
         if ($row) {
             $data = array(
-		'id_sj' => $row->id_sj,
-		'id_jasa' => $row->id_jasa,
-		'id_user' => $row->id_user,
-		'biaya' => $row->biaya,
-		'tgl_sewa' => $row->tgl_sewa,
-		'alamat' => $row->alamat,
-		'tgl_acara' => $row->tgl_acara,
-		'status' => $row->status,
+                'id_pem' => $row->id_pem,
+                'id_sewa' => $row->id_sewa,
+                'biaya' => $row->biaya,
+                'foto' => $row->foto,
+                'tgl_bayar' => $row->tgl_bayar,
+                "container" => "admin/sewa_jasa/sewa_jasa_read", 
+                "footer" => "admin/footer",
+                "nav" => "admin/nav",
 	    );
-            $this->load->view('sewa_jasa/sewa_jasa_read', $data);
+            $this->load->view('admin/template', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('message', 'Maaf Pelanggan belum bayar');
             redirect(site_url('sewa_jasa'));
         }
+
+        // $row = $this->Sewa_jasa_model->get_by_id($id);
+        // if ($row) {
+        //     $data = array(
+		// 'id_sj' => $row->id_sj,
+		// 'id_jasa' => $row->id_jasa,
+		// 'id_user' => $row->id_user,
+		// 'biaya' => $row->biaya,
+		// 'tgl_sewa' => $row->tgl_sewa,
+		// 'alamat' => $row->alamat,
+		// 'tgl_acara' => $row->tgl_acara,
+		// 'status' => $row->status,
+	    // );
+        //     $this->load->view('sewa_jasa/sewa_jasa_read', $data);
+        // } else {
+        //     $this->session->set_flashdata('message', 'Record Not Found');
+        //     redirect(site_url('sewa_jasa'));
+        // }
     }
+    public function konfirmasi() 
+    {
+        $data = array(
+            'status' => $this->input->post('status',TRUE),
+        );
+        $this->pembayaran_model->update($data,$this->input->post('id_pem', TRUE));
+            $this->session->set_flashdata('message', 'Konfirmasi Record Success');
+            redirect(site_url('sewa_jasa'));
+    }
+    
+    public function notif($id) 
+    {
+         $this->db->query('UPDATE pembayaran SET status_notif = 1 where id_pem="'.$id.'"');
+         $this->session->set_flashdata('message', 'Konfirmasi Record Success');
+		 redirect(site_url('sewa_jasa'));
+    }
+    public function re(){
+		$this->load->view("admin/reload");
+	}
 
     public function create() 
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('sewa_jasa/create_action'),
-	    'id_sj' => set_value('id_sj'),
-	    'id_jasa' => set_value('id_jasa'),
-	    'id_user' => set_value('id_user'),
-	    'biaya' => set_value('biaya'),
-	    'tgl_sewa' => set_value('tgl_sewa'),
-	    'alamat' => set_value('alamat'),
-	    'tgl_acara' => set_value('tgl_acara'),
-	    'status' => set_value('status'),
+            'id_sj' => set_value('id_sj'),
+            'id_jasa' => set_value('id_jasa'),
+            'id_user' => set_value('id_user'),
+            'biaya' => set_value('biaya'),
+            'tgl_sewa' => set_value('tgl_sewa'),
+            'alamat' => set_value('alamat'),
+            'tgl_acara' => set_value('tgl_acara'),
 	);
         $this->load->view('sewa_jasa/sewa_jasa_form', $data);
     }
@@ -103,7 +142,6 @@ class Sewa_jasa extends CI_Controller
 		'tgl_sewa' => $this->input->post('tgl_sewa',TRUE),
 		'alamat' => $this->input->post('alamat',TRUE),
 		'tgl_acara' => $this->input->post('tgl_acara',TRUE),
-		'status' => $this->input->post('status',TRUE),
 	    );
 
             $this->Sewa_jasa_model->insert($data);
@@ -120,14 +158,13 @@ class Sewa_jasa extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('sewa_jasa/update_action'),
-		'id_sj' => set_value('id_sj', $row->id_sj),
-		'id_jasa' => set_value('id_jasa', $row->id_jasa),
-		'id_user' => set_value('id_user', $row->id_user),
-		'biaya' => set_value('biaya', $row->biaya),
-		'tgl_sewa' => set_value('tgl_sewa', $row->tgl_sewa),
-		'alamat' => set_value('alamat', $row->alamat),
-		'tgl_acara' => set_value('tgl_acara', $row->tgl_acara),
-		'status' => set_value('status', $row->status),
+                'id_sj' => set_value('id_sj', $row->id_sj),
+                'id_jasa' => set_value('id_jasa', $row->id_jasa),
+                'id_user' => set_value('id_user', $row->id_user),
+                'biaya' => set_value('biaya', $row->biaya),
+                'tgl_sewa' => set_value('tgl_sewa', $row->tgl_sewa),
+                'alamat' => set_value('alamat', $row->alamat),
+                'tgl_acara' => set_value('tgl_acara', $row->tgl_acara),
 	    );
             $this->load->view('sewa_jasa/sewa_jasa_form', $data);
         } else {
@@ -150,7 +187,6 @@ class Sewa_jasa extends CI_Controller
 		'tgl_sewa' => $this->input->post('tgl_sewa',TRUE),
 		'alamat' => $this->input->post('alamat',TRUE),
 		'tgl_acara' => $this->input->post('tgl_acara',TRUE),
-		'status' => $this->input->post('status',TRUE),
 	    );
 
             $this->Sewa_jasa_model->update($this->input->post('id_sj', TRUE), $data);
@@ -181,7 +217,6 @@ class Sewa_jasa extends CI_Controller
 	$this->form_validation->set_rules('tgl_sewa', 'tgl sewa', 'trim|required');
 	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
 	$this->form_validation->set_rules('tgl_acara', 'tgl acara', 'trim|required');
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
 
 	$this->form_validation->set_rules('id_sj', 'id_sj', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

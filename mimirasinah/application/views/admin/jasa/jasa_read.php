@@ -14,7 +14,7 @@
                 <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
                 <tr><td>Harga</td><td><?php echo $harga; ?></td></tr>
                 <tr><td>Deskripsi</td><td><?php echo $deskripsi; ?></td></tr>
-                <tr><td>Foto</td><td><img width='100' src="<?= base_url()?>user/produk_dan_jasa/<?php echo $foto ?>"></td></tr>
+                <tr><td>Foto</td><td><img width='100' src="<?= base_url()?>user/produk_dan_jasa/<?php echo $foto_jasa ?>"></td></tr>
                 <tr><td>Tgl Input</td><td><?php echo $tgl_input; ?></td></tr>
                     <tr><td></td><td>
                     <a href="<?php echo site_url('admin/jasa') ?>" class="btn btn-danger btn-icon-split">

@@ -12,8 +12,8 @@
               <div class="table-responsive">
               <form action="<?php echo $action; ?>" method="post">
                 <div class="form-group">
-                    <label for="varchar">Nama <?php echo form_error('nama') ?></label>
-                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+                    <label for="varchar">Nama user <?php echo form_error('nama_user') ?></label>
+                    <input type="text" class="form-control" name="nama_user" id="nama_user" placeholder="nama_user" value="<?php echo $nama_user; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">Email <?php echo form_error('email') ?></label>
@@ -24,8 +24,8 @@
                     <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" />
                 </div>
                 <div class="form-group">
-                    <label for="varchar">Alamat <?php echo form_error('alamat') ?></label>
-                    <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?php echo $alamat; ?>" />
+                    <label for="varchar">Alamat <?php echo form_error('alamat_user') ?></label>
+                    <input type="text" class="form-control" name="alamat_user" id="alamat_user" placeholder="alamat_user" value="<?php echo $alamat_user; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="varchar">No Hp <?php echo form_error('no_hp') ?></label>

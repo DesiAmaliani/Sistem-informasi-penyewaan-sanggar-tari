@@ -41,7 +41,7 @@
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-                <th>Nama</th>
+                <th>Nama User</th>
                 <th>Email</th>
                 <th>Alamat</th>
                 <th>No Hp</th>
@@ -52,9 +52,9 @@
                         ?>
                         <tr>
                     <td width="80px"><?php echo ++$start ?></td>
-                    <td><?php echo $user->nama ?></td>
+                    <td><?php echo $user->nama_user ?></td>
                     <td><?php echo $user->email ?></td>
-                    <td><?php echo $user->alamat ?></td>
+                    <td><?php echo $user->alamat_user ?></td>
                     <td><?php echo $user->no_hp ?></td>
                     <td style="text-align:center" width="200px">
                         <?php 

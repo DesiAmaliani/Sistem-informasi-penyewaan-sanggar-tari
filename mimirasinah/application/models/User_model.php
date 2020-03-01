@@ -32,10 +32,10 @@ class User_model extends CI_Model
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id_user', $q);
-	$this->db->or_like('nama', $q);
+	$this->db->or_like('nama_user', $q);
 	$this->db->or_like('email', $q);
 	$this->db->or_like('password', $q);
-	$this->db->or_like('alamat', $q);
+	$this->db->or_like('alamat_user', $q);
 	$this->db->or_like('no_hp', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
@@ -45,10 +45,10 @@ class User_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL) {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_user', $q);
-	$this->db->or_like('nama', $q);
+	$this->db->or_like('nama_user', $q);
 	$this->db->or_like('email', $q);
 	$this->db->or_like('password', $q);
-	$this->db->or_like('alamat', $q);
+	$this->db->or_like('alamat_user', $q);
 	$this->db->or_like('no_hp', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();

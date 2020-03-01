@@ -57,6 +57,7 @@ $route['produk'] = 'Home/produk';
 $route['jasa'] = 'Home/jasa';
 $route['galeri'] = 'Home/galeri';
 $route['login'] = 'Home/login';
+$route['tagihan'] = 'Tagihan/index';
 $route['home'] = 'Admin/home';
 $route['admin/kontak'] = 'Kontak/index';
 $route['admin/profil'] = 'Profil/index';

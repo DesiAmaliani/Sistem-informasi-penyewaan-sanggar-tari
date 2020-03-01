@@ -35,7 +35,7 @@ class Jasa_model extends CI_Model
 	$this->db->or_like('nama', $q);
 	$this->db->or_like('harga', $q);
 	$this->db->or_like('deskripsi', $q);
-	$this->db->or_like('foto', $q);
+	$this->db->or_like('foto_jasa', $q);
 	$this->db->or_like('tgl_input', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
@@ -48,7 +48,7 @@ class Jasa_model extends CI_Model
 	$this->db->or_like('nama', $q);
 	$this->db->or_like('harga', $q);
 	$this->db->or_like('deskripsi', $q);
-	$this->db->or_like('foto', $q);
+	$this->db->or_like('foto_jasa', $q);
 	$this->db->or_like('tgl_input', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
@@ -76,9 +76,9 @@ class Jasa_model extends CI_Model
     }
     private function _deleteImage($id){
         $row = $this->get_by_id($id);
-        if ($row->foto != "default.jpg") {
-            $filename = explode(".", $row->foto)[0];
-		return array_map('unlink', glob(FCPATH."hal_admin/galeri/$filename.*"));
+        if ($row->foto_jasa != "default.jpg") {
+            $filename = explode(".", $row->foto_jasa)[0];
+		return array_map('unlink', glob(FCPATH."user/produk_dan_jasa/$filename.*"));
     }
     }
 

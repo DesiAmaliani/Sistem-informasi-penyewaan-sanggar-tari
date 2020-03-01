@@ -80,20 +80,59 @@ class Profil extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_profil', TRUE));
         } else {
-            if (!empty($_FILES["foto_profil"])) {
-            $data = array(
-                'judul' => $this->input->post('judul',TRUE),
-                'isi_profil' => $this->input->post('isi_profil',TRUE),
-                'foto_profil' => $this->_uploadImage(),
-            );
-            } else {
-                $data = array(
-                    'judul' => $this->input->post('judul',TRUE),
-                    'isi_profil' => $this->input->post('isi_profil',TRUE),
-                    'foto_profil' => $this->input->post('old_image',TRUE),
+            $config = array(
+                'upload_path'=>'./user/profil/',
+                'allowed_types'=>'jpg|png|jpeg',
+                'max_size'=>2086
                 );
-            }
 
+            $judul = $this->input->post('judul');
+            $isi_profil = $this->input->post('isi_profil');
+            $foto = $this->db->get_where('profil','id_profil');
+
+            if($foto->num_rows()>0){
+            $pros=$foto->row();
+            $name=$pros->foto_profil;
+
+            if(file_exists($lok=FCPATH.'/user/profil/'.$name)){
+            unlink($lok);
+            }
+            if(file_exists($lok=FCPATH.'/user/profil/'.$name)){
+            unlink($lok);
+            }}
+
+            $this->load->library('upload',$config);
+
+            if($this->upload->do_upload('foto_profil')){
+
+            $finfo = $this->upload->data();
+            $nama_foto = $finfo['file_name'];
+
+            $data= array(
+                                'judul'=>$judul,
+                                'isi_profil'=>$isi_profil,
+                                'foto_profil'=>$nama_foto
+                                );
+
+            $config2 = array(
+                    'source_image'=>'user/profil/'.$nama_foto,
+                    'image_library'=>'gd2',
+                    'new_image'=>'user/profil',
+                    'maintain_ratio'=>true,
+                    'width'=>150,
+                    'height'=>200
+                );
+
+            $this->load->library('image_lib',$config2);
+            $this->image_lib->resize();    
+
+            }else{
+            $data= array(
+                                'judul'=>$judul,
+                                'isi_profil'=>$isi_profil,
+                                );
+
+            }
             $this->Profil_model->update($this->input->post('id_profil', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('admin/profil'));

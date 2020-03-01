@@ -1,96 +1,4 @@
-<!-- <!doctype html>
-<html>
-    <head>
-        <title>harviacode.com - codeigniter crud generator</title>
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>"/>
-        <style>
-            body{
-                padding: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2 style="margin-top:0px">Sewa_jasa List</h2>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
-                <?php echo anchor(site_url('sewa_jasa/create'),'Create', 'class="btn btn-primary"'); ?>
-            </div>
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-                </div>
-            </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('sewa_jasa/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('sewa_jasa'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Id Jasa</th>
-		<th>Id User</th>
-		<th>Biaya</th>
-		<th>Tgl Sewa</th>
-		<th>Alamat</th>
-		<th>Tgl Selesai</th>
-		<th>Tgl Mulai</th>
-		<th>Status</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($sewa_jasa_data as $sewa_jasa)
-            {
-                ?>
-                <tr>
-			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $sewa_jasa->id_jasa ?></td>
-			<td><?php echo $sewa_jasa->id_user ?></td>
-			<td><?php echo $sewa_jasa->biaya ?></td>
-			<td><?php echo $sewa_jasa->tgl_sewa ?></td>
-			<td><?php echo $sewa_jasa->alamat ?></td>
-			<td><?php echo $sewa_jasa->tgl_selesai ?></td>
-			<td><?php echo $sewa_jasa->tgl_mulai ?></td>
-			<td><?php echo $sewa_jasa->status ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('sewa_jasa/read/'.$sewa_jasa->id_sj),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('sewa_jasa/update/'.$sewa_jasa->id_sj),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('sewa_jasa/delete/'.$sewa_jasa->id_sj),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
-            }
-            ?>
-        </table>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
-    </body>
-</html> -->
+
 <div class="container-fluid">
 
           <!-- Page Heading -->
@@ -109,55 +17,60 @@
                 </div>
             </div>
             <div class="col-md-4 text-right">
-                <form action="<?php echo site_url('sewa_jasa/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('admin/sewa_jasa'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
-                    </div>
-                </form>
+                
             </div>
         </div>
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-                <th>Jasa</th>
-                <th>User</th>
-                <th>Biaya</th>
                 <th>Tanggal Sewa</th>
                 <th>Alamat</th>
                 <th>Tanggal Acara</th>
+                <th>Biaya</th>
+                <th>Jasa</th>
+                <th>User</th>
                 <th>Status</th>
                 <th>Action</th>
                     </tr><?php
-                    foreach ($sewa_jasa_data as $sewa_jasa)
-                    {
-                        ?>
+                  $sewa_jasa_data= $this->db->query("SELECT * from sewa_jasa inner join jasa on sewa_jasa.id_jasa=jasa.id_jasa inner join user on sewa_jasa.id_user=user.id_user");
+                  foreach ($sewa_jasa_data->result() as $sewa_jasa)
+                  {
+                    ?>
                         <tr>
                     <td width="80px"><?php echo ++$start ?></td>
-                    <td><?php echo $sewa_jasa->id_jasa ?></td>
-                    <td><?php echo $sewa_jasa->id_user ?></td>
-                    <td><?php echo $sewa_jasa->biaya ?></td>
                     <td><?php echo $sewa_jasa->tgl_sewa ?></td>
                     <td><?php echo $sewa_jasa->alamat ?></td>
                     <td><?php echo $sewa_jasa->tgl_acara ?></td>
-                    <td><?php echo $sewa_jasa->status ?></td>
+                    <td><?php echo $sewa_jasa->biaya ?></td>
+                    <td><?php echo $sewa_jasa->nama ?></td>
+                    <td><?php echo $sewa_jasa->nama_user ?></td>
+                    <?php
+                    $pembayaran_data= $this->db->query("SELECT * from pembayaran where id_sewa='$sewa_jasa->id_sj'");
+                        $pembayaran=$pembayaran_data->num_rows();  
+                        if($pembayaran==NULL){
+                            echo '<td><span class="badge badge-warning">Belum Bayar</span></td>';
+                        }elseif($pembayaran!=NULL){
+                            $query6=$this->db->query("SELECT * from pembayaran where id_sewa='$sewa_jasa->id_sj'");
+                                foreach($query6->result() as $query6){
+                                    if($query6->status==1){
+                                    echo '<td><span class="badge badge-warning">Sudah bayar menunggu Konfirmasi Admin</span></td>';
+                                    }else{
+                                        echo '<td><span class="badge badge-warning">Sewa sudah diKonfirmasi </span></td>';
+                                    }
+                                }
+                        }
+                    ?>
+                    
                     <td style="text-align:center" width="200px">
                         <?php 
-                        echo anchor(site_url('sewa_jasa/read/'.$sewa_jasa->id_sj),'Detail Pembayaran'); 
-                        echo ' | '; 
-                        echo anchor(site_url('sewa_jasa/update/'.$sewa_jasa->id_sj),'Update'); 
-                        echo ' | '; 
-                        echo anchor(site_url('sewa_jasa/delete/'.$sewa_jasa->id_sj),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+                        echo anchor(site_url('sewa_jasa/read/'.$sewa_jasa->id_sj),'Detail Pembayaran');
+                        if($query6->status==1){
+                        echo '|';
+                        echo '<form action="'.site_url('sewa_jasa/konfirmasi').'" method="post">';
+                        echo '<input type="hidden" name="status" value="2">';
+                        echo '<input type="hidden" name="id_pem" value="'.$query6->id_pem.'">';
+                        echo '<button type="submit" class="btn btn-success">Konfirmasi</button></form>';
+                        }
                         ?>
                     </td>
                 </tr>

@@ -21,7 +21,8 @@ class Home extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('Agenda_model');
+		$this->load->model('Agenda_model');
+		$this->load->model('User_model');
         $this->load->library('form_validation');
     }
 	public function index(){
@@ -72,4 +73,55 @@ class Home extends CI_Controller {
 		$data = array("container" => "user/login", "footer" => "user/footer", "nav" => "user/nav");
 		$this->load->view("user/template", $data);
 	}
+	public function daftar() 
+    {
+        $data = array(
+            'button' => 'Daftar',
+            'action' => site_url('home/create_action'),
+            'id_user' => set_value('id_user'),
+            'nama' => set_value('nama'),
+            'email' => set_value('email'),
+            'password' => set_value('password'),
+            'alamat' => set_value('alamat'),
+            'no_hp' => set_value('no_hp'),
+			"container" => "user/login", 
+			"footer" => "user/footer", 
+			"nav" => "user/nav"
+        );
+        $this->load->view('user/template', $data);
+    }
+    
+    public function daftar_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->daftar();
+        } else {
+            $data = array(
+                'id_user' => $this->input->post('id_user',TRUE),
+                'nama' => $this->input->post('nama',TRUE),
+                'email' => $this->input->post('email',TRUE),
+                'password' => $this->input->post('password',TRUE),
+                'alamat' => $this->input->post('alamat',TRUE),
+                'no_hp' => $this->input->post('no_hp',TRUE),
+            );
+
+            $this->User_model->insert($data);
+			// $this->session->set_flashdata('message', 'Create Record Success');
+			echo "<script>alert('Daftar Berhasil');location='login';</script>";
+        }
+	}
+	public function _rules() 
+    {
+	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+	$this->form_validation->set_rules('email', 'email', 'trim|required');
+	$this->form_validation->set_rules('password', 'password', 'trim|required');
+	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+	$this->form_validation->set_rules('no_hp', 'no hp', 'trim|required');
+
+	$this->form_validation->set_rules('id_user', 'id_user', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+	}
+	
 }

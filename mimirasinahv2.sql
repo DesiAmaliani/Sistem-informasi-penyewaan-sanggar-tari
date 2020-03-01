@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Jan 2020 pada 13.13
+-- Waktu pembuatan: 01 Mar 2020 pada 16.17
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.2.20
 
@@ -100,9 +100,16 @@ CREATE TABLE `jasa` (
   `nama` varchar(255) NOT NULL,
   `harga` int(11) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
-  `foto` varchar(255) NOT NULL,
+  `foto_jasa` varchar(255) NOT NULL,
   `tgl_input` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `jasa`
+--
+
+INSERT INTO `jasa` (`id_jasa`, `nama`, `harga`, `deskripsi`, `foto_jasa`, `tgl_input`) VALUES
+(1, 'Penyewaan Penari Topeng', 1000000, 'Sewa Penari Topeng', 'mimi.jpg', '2020-01-07');
 
 -- --------------------------------------------------------
 
@@ -132,10 +139,20 @@ INSERT INTO `kontak` (`id_kontak`, `alamat_kontak`, `email_kontak`, `telepon_kon
 
 CREATE TABLE `pembayaran` (
   `id_pem` int(11) NOT NULL,
-  `id_sewa` int(11) NOT NULL,
+  `id_sewa` varchar(11) NOT NULL,
   `biaya` int(11) NOT NULL,
-  `bukti_pem` varchar(255) NOT NULL
+  `foto` varchar(255) NOT NULL,
+  `tgl_bayar` date NOT NULL,
+  `status` int(2) NOT NULL,
+  `status_notif` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pem`, `id_sewa`, `biaya`, `foto`, `tgl_bayar`, `status`, `status_notif`) VALUES
+(3, 'J1', 1000000, 'P1.jpg', '2020-02-15', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -151,6 +168,13 @@ CREATE TABLE `produk` (
   `foto` varchar(255) NOT NULL,
   `tglinput` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `judul`, `stok`, `harga`, `foto`, `tglinput`) VALUES
+(1, 'Baju Tari Topeng', 9, 100000, '1.jpg', '2020-02-09');
 
 -- --------------------------------------------------------
 
@@ -170,7 +194,7 @@ CREATE TABLE `profil` (
 --
 
 INSERT INTO `profil` (`id_profil`, `judul`, `isi_profil`, `foto_profil`) VALUES
-(1, 'Profil Sanggar Tari Mimi Rasinah', 'gashgahgsjagjsgajsg', 'default.jpg');
+(1, 'Profil Sanggar Tari Mimi Rasinah', 'Sanggar Tari Terletak di jalan .......', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -179,15 +203,21 @@ INSERT INTO `profil` (`id_profil`, `judul`, `isi_profil`, `foto_profil`) VALUES
 --
 
 CREATE TABLE `sewa_jasa` (
-  `id_sj` int(11) NOT NULL,
+  `id_sj` varchar(11) NOT NULL,
   `id_jasa` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `biaya` int(11) NOT NULL,
   `tgl_sewa` date NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `tgl_acara` date NOT NULL,
-  `status` int(2) NOT NULL
+  `tgl_acara` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `sewa_jasa`
+--
+
+INSERT INTO `sewa_jasa` (`id_sj`, `id_jasa`, `id_user`, `biaya`, `tgl_sewa`, `alamat`, `tgl_acara`) VALUES
+('J1', 1, 3, 1000000, '2020-02-15', 'indramayu', '2020-02-11');
 
 -- --------------------------------------------------------
 
@@ -196,16 +226,26 @@ CREATE TABLE `sewa_jasa` (
 --
 
 CREATE TABLE `sewa_produk` (
-  `id_sp` int(11) NOT NULL,
+  `id_sp` varchar(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
   `tgl_sewa` date NOT NULL,
   `biaya` int(11) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `tgl_mulai` date NOT NULL,
-  `tgl_selesai` date NOT NULL,
+  `tgl_acara` date NOT NULL,
   `jml_pesan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Trigger `sewa_produk`
+--
+DELIMITER $$
+CREATE TRIGGER `sewaproduk` AFTER INSERT ON `sewa_produk` FOR EACH ROW BEGIN
+	UPDATE produk SET stok = stok-NEW.jml_pesan 
+    WHERE id_produk = NEW.id_produk;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -215,12 +255,19 @@ CREATE TABLE `sewa_produk` (
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
+  `nama_user` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `alamat` varchar(255) NOT NULL,
+  `alamat_user` varchar(255) NOT NULL,
   `no_hp` varchar(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id_user`, `nama_user`, `email`, `password`, `alamat_user`, `no_hp`) VALUES
+(3, 'Desi Amaliani', 'desi.amaliani@gmail.com', '1234', 'indramayu', '087718727715');
 
 -- --------------------------------------------------------
 
@@ -339,6 +386,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `kontak`
   MODIFY `id_kontak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id_pem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `profil`

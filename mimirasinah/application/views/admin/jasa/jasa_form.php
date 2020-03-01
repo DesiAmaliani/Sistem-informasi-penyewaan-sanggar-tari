@@ -24,29 +24,28 @@
                     <textarea class="form-control" name="deskripsi" id="deskripsi" placeholder="Deskripsi"><?php echo $deskripsi; ?></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="varchar">Foto<?php echo form_error('foto') ?></label>
+                    <label for="varchar">Foto<?php echo form_error('foto_jasa') ?></label>
                     <br>
                     <?php
                     if($button=='Update'){?>
-                        <input type="file" class="form" name="foto" id="foto" placeholder="Foto" value="<?php echo $foto; ?>" />
-                        <input type="hidden" name="old_image" value="<?php echo $foto?>" />
+                        <input type="file" class="form" name="foto_jasa" id="foto_jasa" placeholder="Foto_jasa" value="<?php echo $foto_jasa; ?>" />
                         <br>
                         <br>
-                        <img class="img-thumbnail" width='100' src="<?php echo base_url()?>user/galeri/<?php echo $foto?>">
+                        <img class="img-thumbnail" width='100' src="<?php echo base_url()?>user/produk_dan_jasa/<?php echo $foto_jasa;?>">
                     <?php }else{ ?>
-                    <input type="file" class="form" name="foto" id="foto" placeholder="Foto" value="<?php echo $foto; ?>" />
+                    <input type="file" class="form" name="foto_jasa" id="foto_jasa" placeholder="Foto_jasa" value="<?php echo $foto_jasa; ?>" />
                     <?php }?>
                 </div>
                 <div class="form-group">
-                    <label for="date">Tgl input<?php echo form_error('tglinput') ?></label>
+                    <label for="date">Tgl input<?php echo form_error('tgl_input') ?></label>
                     <?php 
                     if($button=='Create'){
-                        $tglinput= date("Y/m/d");
+                        $tgl_input= date("Y/m/d");
                     }else{
-                        $tglinput= $tglinput;
+                        $tglinput= $tgl_input;
                     }
                     ?>
-                    <input type="text" class="form-control" name="tglinput" id="tglinput" placeholder="Tglinput" value="<?php echo $tglinput; ?>" readonly />
+                    <input type="text" class="form-control" name="tgl_input" id="tgl_input" placeholder="Tglinput" value="<?php echo $tgl_input; ?>" readonly />
                 </div>
                 <?php 
                     if($button=='Create'){

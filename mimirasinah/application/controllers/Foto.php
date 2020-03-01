@@ -136,19 +136,60 @@ class Foto extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_galeri', TRUE));
         } else {
-            if (!empty($_FILES["foto"])) {
-                $data = array(
-                'ket_galeri' => $this->input->post('ket_galeri',TRUE),
-                'foto_galeri' => $this->_uploadImage(),
-                'tglinput_galeri' => $this->input->post('tglinput_galeri',TRUE),
+            $config = array(
+                'upload_path'=>'./user/galeri/',
+                'allowed_types'=>'jpg|png|jpeg',
+                'max_size'=>2086
                 );
-             } else {
-                $data = array(
-                    'ket_galeri' => $this->input->post('ket_galeri',TRUE),
-                    'foto_galeri' => $this->input->post('old_image',TRUE),
-                    'tglinput_galeri' => $this->input->post('tglinput_galeri',TRUE),
-                    );
+
+            $ket_galeri = $this->input->post('ket_galeri');
+            $tglinput_galeri = $this->input->post('tglinput_galeri');
+            $foto = $this->db->get_where('foto','id_galeri');
+
+            if($foto->num_rows()>0){
+            $pros=$foto->row();
+            $name=$pros->foto_galeri;
+
+            if(file_exists($lok=FCPATH.'/user/galeri/'.$name)){
+            unlink($lok);
             }
+            if(file_exists($lok=FCPATH.'/user/galeri/'.$name)){
+            unlink($lok);
+            }}
+
+            $this->load->library('upload',$config);
+
+            if($this->upload->do_upload('foto_galeri')){
+
+            $finfo = $this->upload->data();
+            $nama_foto = $finfo['file_name'];
+
+            $data= array(
+                                'ket_galeri'=>$ket_galeri,
+                                'tglinput_galeri'=>$tglinput_galeri,
+                                'foto_galeri'=>$nama_foto
+                                );
+
+            $config2 = array(
+                    'source_image'=>'user/galeri/'.$nama_foto,
+                    'image_library'=>'gd2',
+                    'new_image'=>'user/galeri',
+                    'maintain_ratio'=>true,
+                    'width'=>150,
+                    'height'=>200
+                );
+
+            $this->load->library('image_lib',$config2);
+            $this->image_lib->resize();    
+
+            }else{
+            $data= array(
+                                'ket_galeri'=>$ket_galeri,
+                                'tglinput_galeri'=>$tglinput_galeri,
+                                );
+
+            }
+
             $this->Foto_model->update($this->input->post('id_galeri', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('admin/foto'));

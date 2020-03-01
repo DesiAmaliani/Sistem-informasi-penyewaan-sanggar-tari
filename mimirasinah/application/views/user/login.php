@@ -6,15 +6,15 @@
         	<div class="col-lg-12 d-flex mb-sm-12 ftco-animate">
         		<div class="staff">
                 <h3 class="mb-12 text-center">Login</h3>
-                <form action="#" class="appointment-form">
+                <form action="<?php echo site_url('User_login/aksi_login') ?>" method="post" class="appointment-form">
 	    				<div class="d-md-flex">
 		    				<div class="form-group">
-		    					<input type="text" class="form-control" placeholder="Username">
+		    					<input type="text" class="form-control" placeholder="Username" name="email">
 		    				</div>
 	    				</div>
 	    				<div class="d-me-flex">
 	    					<div class="form-group">
-		    					<input type="password" class="form-control" placeholder="Password">
+		    					<input type="password" class="form-control" placeholder="Password" name="password">
 		    				</div>
 						</div>
 						<div class="d-me-flex">
@@ -40,7 +40,7 @@
           </button>
         </div>
         <div class="modal-body" style="background-color: black; color: white">
-		<form action="<?php echo site_url('Daftar/index') ?>" method="post">
+		<form action="<?php echo site_url('Home/daftar_action') ?>" method="post">
                 <div class="form-group">
                     <label for="varchar">Nama</label>
                     <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required/>

@@ -72,9 +72,9 @@ class Foto_model extends CI_Model
     }
     private function _deleteImage($id){
         $row = $this->get_by_id($id);
-        if ($row->foto != "default.jpg") {
-            $filename = explode(".", $row->foto)[0];
-		return array_map('unlink', glob(FCPATH."hal_admin/galeri/$filename.*"));
+        if ($row->foto_galeri != "default.jpg") {
+            $filename = explode(".", $row->foto_galeri)[0];
+		return array_map('unlink', glob(FCPATH."user/galeri/$filename.*"));
     }
     }
 

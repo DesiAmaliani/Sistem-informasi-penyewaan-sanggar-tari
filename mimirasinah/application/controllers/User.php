@@ -56,10 +56,10 @@ class User extends CI_Controller
         if ($row) {
             $data = array(
             'id_user' => $row->id_user,
-            'nama' => $row->nama,
+            'nama_user' => $row->nama_user,
             'email' => $row->email,
             'password' => $row->password,
-            'alamat' => $row->alamat,
+            'alamat_user' => $row->alamat_user,
             'no_hp' => $row->no_hp,
             "container" => "admin/user/user_read", 
             "footer" => "admin/footer",
@@ -78,10 +78,10 @@ class User extends CI_Controller
             'button' => 'Create',
             'action' => site_url('user/create_action'),
             'id_user' => set_value('id_user'),
-            'nama' => set_value('nama'),
+            'nama_user' => set_value('nama_user'),
             'email' => set_value('email'),
             'password' => set_value('password'),
-            'alamat' => set_value('alamat'),
+            'alamat_user' => set_value('alamat_user'),
             'no_hp' => set_value('no_hp'),
             "container" => "admin/user/user_form", 
             "footer" => "admin/footer",
@@ -99,10 +99,10 @@ class User extends CI_Controller
         } else {
             $data = array(
                 'id_user' => $this->input->post('id_user',TRUE),
-                'nama' => $this->input->post('nama',TRUE),
+                'nama_user' => $this->input->post('nama_user',TRUE),
                 'email' => $this->input->post('email',TRUE),
                 'password' => $this->input->post('password',TRUE),
-                'alamat' => $this->input->post('alamat',TRUE),
+                'alamat_user' => $this->input->post('alamat_user',TRUE),
                 'no_hp' => $this->input->post('no_hp',TRUE),
             );
 
@@ -121,10 +121,10 @@ class User extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('user/update_action'),
                 'id_user' => set_value('id_user', $row->id_user),
-                'nama' => set_value('nama', $row->nama),
+                'nama_user' => set_value('nama_user', $row->nama_user),
                 'email' => set_value('email', $row->email),
                 'password' => set_value('password', $row->password),
-                'alamat' => set_value('alamat', $row->alamat),
+                'alamat_user' => set_value('alamat_user', $row->alamat_user),
                 'no_hp' => set_value('no_hp', $row->no_hp),
                 "container" => "admin/user/user_form", 
                 "footer" => "admin/footer",
@@ -145,10 +145,10 @@ class User extends CI_Controller
             $this->update($this->input->post('id_user', TRUE));
         } else {
             $data = array(
-                'nama' => $this->input->post('nama',TRUE),
+                'nama_user' => $this->input->post('nama_user',TRUE),
                 'email' => $this->input->post('email',TRUE),
                 'password' => $this->input->post('password',TRUE),
-                'alamat' => $this->input->post('alamat',TRUE),
+                'alamat_user' => $this->input->post('alamat_user',TRUE),
                 'no_hp' => $this->input->post('no_hp',TRUE),
                 );
 
@@ -174,10 +174,10 @@ class User extends CI_Controller
 
     public function _rules() 
     {
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+	$this->form_validation->set_rules('nama_user', 'nama_user', 'trim|required');
 	$this->form_validation->set_rules('email', 'email', 'trim|required');
 	$this->form_validation->set_rules('password', 'password', 'trim|required');
-	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+	$this->form_validation->set_rules('alamat_user', 'alamat_user', 'trim|required');
 	$this->form_validation->set_rules('no_hp', 'no hp', 'trim|required');
 
 	$this->form_validation->set_rules('id_user', 'id_user', 'trim');

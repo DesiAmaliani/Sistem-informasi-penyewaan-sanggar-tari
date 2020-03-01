@@ -144,23 +144,66 @@ class Produk extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_produk', TRUE));
         } else {
-            if (!empty($_FILES["foto"])) {
-            $data = array(
-            'judul' => $this->input->post('judul',TRUE),
-            'stok' => $this->input->post('stok',TRUE),
-            'harga' => $this->input->post('harga',TRUE),
-            'foto' => $this->_uploadImage(),
-            'tglinput' => $this->input->post('tglinput',TRUE),
-            );
-            } else {
-                $data = array(
-                    'judul' => $this->input->post('judul',TRUE),
-                    'stok' => $this->input->post('stok',TRUE),
-                    'harga' => $this->input->post('harga',TRUE),
-                    'foto' => $this->input->post('old_image',TRUE),
-                    'tglinput' => $this->input->post('tglinput',TRUE),
-                    );
+            $config = array(
+                'upload_path'=>'./user/produk_dan_jasa/',
+                'allowed_types'=>'jpg|png|jpeg',
+                'max_size'=>2086
+                );
+
+            $judul = $this->input->post('judul');
+            $harga = $this->input->post('harga');
+            $stok = $this->input->post('stok');
+            $tglinput = $this->input->post('tglinput');
+            $foto = $this->db->get_where('produk','id_produk');
+
+            if($foto->num_rows()>0){
+            $pros=$foto->row();
+            $name=$pros->foto;
+
+            if(file_exists($lok=FCPATH.'/user/produk_dan_jasa/'.$name)){
+            unlink($lok);
             }
+            if(file_exists($lok=FCPATH.'/user/produk_dan_jasa/'.$name)){
+            unlink($lok);
+            }}
+
+            $this->load->library('upload',$config);
+
+            if($this->upload->do_upload('foto')){
+
+            $finfo = $this->upload->data();
+            $nama_foto = $finfo['file_name'];
+
+            $data= array(
+                                'judul'=>$judul,
+                                'harga'=>$harga,
+                                'stok'=>$stok,
+                                'tglinput'=>$tglinput,
+                                'foto'=>$nama_foto
+                                );
+
+            $config2 = array(
+                    'source_image'=>'user/produk_dan_jasa/'.$nama_foto,
+                    'image_library'=>'gd2',
+                    'new_image'=>'user/produk_dan_jasa',
+                    'maintain_ratio'=>true,
+                    'width'=>150,
+                    'height'=>200
+                );
+
+            $this->load->library('image_lib',$config2);
+            $this->image_lib->resize();    
+
+            }else{
+            $data= array(
+                                'judul'=>$judul,
+                                'harga'=>$harga,
+                                'stok'=>$stok,
+                                'tglinput'=>$tglinput,
+                                );
+
+            }
+
             $this->Produk_model->update($this->input->post('id_produk', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('admin/produk'));

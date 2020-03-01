@@ -110,9 +110,9 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-  <a class="nav-link" href="pembayaran">
+  <a class="nav-link" href="keuangan">
     <i class="fas fa-fw fa-chart-area"></i>
-    <span>Pembayaran</span></a>
+    <span>Laporan Keuangan</span></a>
 </li>
 
 <!-- Nav Item - Tables -->

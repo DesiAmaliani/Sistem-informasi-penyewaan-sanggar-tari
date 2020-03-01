@@ -78,7 +78,7 @@ class Produk_model extends CI_Model
         $row = $this->get_by_id($id);
         if ($row->foto != "default.jpg") {
             $filename = explode(".", $row->foto)[0];
-		return array_map('unlink', glob(FCPATH."hal_admin/galeri/$filename.*"));
+		return array_map('unlink', glob(FCPATH."user/galeri/$filename.*"));
     }
     }
 
