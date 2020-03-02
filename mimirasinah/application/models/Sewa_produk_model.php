@@ -8,9 +8,7 @@ class Sewa_produk_model extends CI_Model
 
     public $table = 'sewa_produk';
     public $id = 'id_sp';
-    public $id_produk = 'id_produk';
     public $order = 'DESC';
-    public $table_p = 'produk';
 
     function __construct()
     {
@@ -41,7 +39,6 @@ class Sewa_produk_model extends CI_Model
 	$this->db->or_like('alamat', $q);
 	$this->db->or_like('tgl_acara', $q);
 	$this->db->or_like('jml_pesan', $q);
-	$this->db->or_like('status', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -57,7 +54,6 @@ class Sewa_produk_model extends CI_Model
 	$this->db->or_like('alamat', $q);
 	$this->db->or_like('tgl_acara', $q);
 	$this->db->or_like('jml_pesan', $q);
-	$this->db->or_like('status', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

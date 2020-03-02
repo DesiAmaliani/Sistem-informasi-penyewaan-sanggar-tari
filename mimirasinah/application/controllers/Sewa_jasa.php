@@ -108,6 +108,11 @@ class Sewa_jasa extends CI_Controller
 		 redirect(site_url('sewa_jasa'));
     }
     public function re(){
+        // $this->session->set_flashdata('msg', 
+        // '<div class="alert alert-success">
+        //     <h4>Anda Ada Pesan</h4>
+        // </div>');  
+        
 		$this->load->view("admin/reload");
 	}
 
