@@ -1,8 +1,8 @@
-<section class="ftco-gallery">
+<section class="ftco-gallery" style="background-color: whitesmoke;">
     	<div class="container-wrap">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Galeri Foto</h2>
+            <h2 class="mb-4"style="color: black"><b>Galeri Foto</b></h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
           </div>
         </div>
@@ -25,11 +25,11 @@
                 </div>
             </div>
     </section>
-    <section class="ftco-gallery">
+    <section class="ftco-gallery" style="background-color: whitesmoke;">
     	<div class="container-wrap">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Galeri Video</h2>
+            <h2 class="mb-4"style="color: black"><b>Galeri Video</b></h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
           </div>
         </div>

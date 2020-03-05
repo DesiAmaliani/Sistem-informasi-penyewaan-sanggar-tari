@@ -1,5 +1,5 @@
 
-    <section class="ftco-appointment">
+    <section class="ftco-appointment"style="background-color: whitesmoke;">
 			<div class="overlay"></div>
     	<div class="container-wrap">
     		<div class="row no-gutters d-md-flex align-items-center">
@@ -8,7 +8,7 @@
     			</div>
 	    		<div class="col-md-6 appointment ftco-animate">
                 <div class="col-md-12 mb-4">
-	              <h2 class="h4">Kontak</h2>
+	              <h2 class="h4" style="color: black"><b>Kontak</b></h2>
 				</div>
 				<?php
 				$kontak_data = $this->db->query("SELECT * from kontak");

@@ -1,4 +1,4 @@
-    <section class="home-slider owl-carousel img">
+    <section class="home-slider owl-carousel img" style="height: 29rem">
 
       <div class="slider-item" style="background-image: url(<?php echo base_url(); ?>user/slider/mimi.jpg);">
       	<div class="overlay"></div>
@@ -43,11 +43,11 @@
       </div>
     </section>
 
-    <section class="ftco-section">
-      <div class="container">
+    <section class="ftco-section" style="background-color: whitesmoke;">
+      <div class="container" >
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Berita</h2>
+            <h2 class="mb-4" style="color: black"><b>Berita</b></h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
           </div>
         </div>
@@ -65,7 +65,7 @@
                   <div><a><span class="icon-calendar"> <?php echo $agenda->tgl_agenda ?></span> | <?php echo $agenda->waktu_agenda ?> </a></div>
                   <div><a><?php echo $agenda->tempat_agenda ?></a></div>
                 </div>
-                <h3 class="heading mt-2"><a href="#"><?php echo $agenda->judul_agenda ?></a></h3>
+                <h3 class="heading mt-2" ><a href="#" style="color: black"><?php echo $agenda->judul_agenda ?></a></h3>
                 <!-- <p><?php // echo $agenda->isi_agenda ?></p> -->
               </div>
             </div>
@@ -79,7 +79,7 @@
     	<div class="container-wrap">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Galeri Foto</h2>
+            <h2 class="mb-4" style="color: black"><b>Galeri Foto</b></h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
           </div>
         </div>
@@ -105,7 +105,7 @@
     	<div class="container-wrap">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Galeri Video</h2>
+            <h2 class="mb-4" style="color: black"><b>Galeri Video</b></h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-<section class="ftco-section ftco-degree-bg">
+<section class="ftco-section ftco-degree-bg"style="background-color: whitesmoke;">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
